@@ -21,7 +21,8 @@ Use the `PORT` environment variable to set a custom port. Default port is `3000`
 The application is able to return multiple formats which can be specified in the url. The default is `png`.
 
 ```
-http://localhost.3000/:tweet_id.:format?
+http://localhost.3000/statuses/:tweet_id.:format?
+http://localhost.3000/:screenname/status/:tweet_id.:format?
 ```
 
 ### Examples
@@ -29,27 +30,33 @@ http://localhost.3000/:tweet_id.:format?
 #### PNG
 
 ```
-http://localhost.3000/210462857140252672
-http://localhost.3000/210462857140252672.png
+http://localhost.3000/statuses/210462857140252672
+http://localhost.3000/twitterapi/status/210462857140252672
+http://localhost.3000/statuses/210462857140252672.png
+http://localhost.3000/twitterapi/status/210462857140252672.png
 ```
 
 #### JPEG
 
 ```
-http://localhost.3000/210462857140252672.jpeg
-http://localhost.3000/210462857140252672.jpg
+http://localhost.3000/statuses/210462857140252672.jpeg
+http://localhost.3000//twitterapi/status/210462857140252672.jpg
+http://localhost.3000/statuses/210462857140252672.jpeg
+http://localhost.3000//twitterapi/status/210462857140252672.jpg
 ```
 
 #### HTML
 
 ```
-http://localhost.3000/210462857140252672.html
+http://localhost.3000/statuses/210462857140252672.html
+http://localhost.3000/twitterapi/status/210462857140252672.html
 ```
 
 #### SVG
 
 ```
-http://localhost.3000/210462857140252672.svg
+http://localhost.3000/statuses/210462857140252672.svg
+http://localhost.3000/twitterapi/status/210462857140252672.svg
 ```
 
 *Makes use of the `foreignObject` element which is currently not supported by Internet Explorer.*

@@ -1,14 +1,26 @@
 {
   "name": "twitter-to-image",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Creates images from tweets.",
   "main": "server.js",
   "scripts": {
     "test": "standard && ava",
     "dev": "nodemon -e 'js,json,dot' server.js"
   },
-  "author": "Fabian Schneider",
+  "keywords": [
+    "twitter",
+    "image"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fabsrc/twitter-to-image"
+  },
+  "author": "Fabian Schneider <fabbbbbi@googlemail.com>",
   "license": "MIT",
+  "homepage": "https://github.com/fabsrc/twitter-to-image#readme",
+  "bugs": {
+    "url": "https://github.com/fabsrc/twitter-to-image/issues"
+  },
   "dependencies": {
     "dot": "^1.0.3",
     "dotenv": "^2.0.0",
