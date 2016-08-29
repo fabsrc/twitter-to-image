@@ -1,21 +1,14 @@
-const app = require('express')()
-const phantom = require('phantom')
+const dots = require('dot').process({ path: './templates' })
 const Datastore = require('nedb')
+const app = require('express')()
 const Twit = require('twit')
-const dot = require('dot')
-const fs = require('fs')
+const render = require('./lib/render')
 const config = require('./config.json')
-const template = fs.readFileSync('./templates/default.dot', 'utf8')
-const svgTemplate = fs.readFileSync('./templates/svg.dot', 'utf8')
 
-let render = dot.template(template)
-let renderSvg = dot.template(svgTemplate)
 let T = new Twit(config.twitter)
 let db = new Datastore({ filename: 'tweets.db', autoload: true })
-let phInstance
-phantom.create().then(ph => { phInstance = ph })
 
-app.get('/:id', (req, res) => {
+app.get('/:id.:format?', (req, res) => {
   new Promise((resolve, reject) => {
     db.findOne({ _id: req.params.id }, (err, cachedTweet) => {
       if (err) {
@@ -45,35 +38,36 @@ app.get('/:id', (req, res) => {
     })
   })
   .then(tweet => {
-    let content = render(tweet)
+    let content = dots.default(tweet)
 
-    if (req.query.format === 'html') {
-      return res.end(content)
-    } else if (req.query.format === 'svg') {
-      let svgContent = renderSvg({ content: content })
-      res.writeHead(200, {'Content-Type': 'image/svg+xml'})
-      return res.end(svgContent)
-    } else {
-      let page
-
-      phInstance.createPage().then(p => {
-        page = p
-        page.on('onLoadFinished', success => {
-          page.renderBase64('PNG').then(image => {
-            page.close()
-
-            let imageBuffer = new Buffer(image, 'base64')
-            res.writeHead(200, {'Content-Type': 'image/png'})
-            res.end(imageBuffer, 'binary')
-          })
+    switch (String(req.params.format).toLowerCase()) {
+      case 'html':
+        return res.end(content)
+      case 'svg':
+        let svgContent = dots.svg({ content: content })
+        res.writeHead(200, {'Content-Type': 'image/svg+xml'})
+        return res.end(svgContent)
+      case 'jpg':
+        req.params.format = 'jpeg' // Fallthrough!
+      case 'jpeg': // eslint-disable-line
+      case 'png':
+      case 'gif':
+      case 'undefined':
+        req.params.format = req.params.format || 'png'
+        return render(content, req.params.format).then(imageBuffer => {
+          res.writeHead(200, {'Content-Type': `image/${req.params.format}`})
+          return res.end(imageBuffer, 'binary')
         })
-        page.setContent(content, 'localhost')
-      })
+      default:
+        return res.status(415).send(`Format ${req.params.format} not supported!`)
     }
   })
   .catch(console.error)
 })
 
-app.get('/', (req, res) => res.send('Please enter a tweet id.'))
-app.listen(3000, console.log('Started server on port 3000!'))
+app.get('/', (req, res) => res.status(404).send('Please enter a valid tweet id.'))
+app.listen(process.env.PORT || 3000, function () {
+  console.log(`Started server on port ${this.address().port}!`)
+})
+
 module.exports = app

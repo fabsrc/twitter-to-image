@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "standard && ava",
-    "dev": "nodemon server.js"
+    "dev": "nodemon -e 'js,json,dot' server.js"
   },
   "author": "Fabian Schneider",
   "license": "MIT",
@@ -13,14 +13,14 @@
     "dot": "^1.0.3",
     "express": "^4.14.0",
     "nedb": "^1.8.0",
-    "phantom": "^2.1.15",
+    "phantom": "^2.1.20",
     "twit": "^2.2.4"
   },
   "devDependencies": {
     "ava": "^0.16.0",
     "nock": "^8.0.0",
-    "nodemon": "^1.10.0",
-    "standard": "^7.1.2",
+    "nodemon": "^1.10.2",
+    "standard": "^8.0.0",
     "supertest": "^2.0.0"
   }
 }

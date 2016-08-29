@@ -29,8 +29,8 @@ test.cb('display message when no tweet id is given', t => {
     .get('/')
     .end((err, res) => {
       t.falsy(err)
-      t.is(res.status, 200)
-      t.is(res.text, 'Please enter a tweet id.')
+      t.is(res.status, 404)
+      t.is(res.text, 'Please enter a valid tweet id.')
       t.end()
     })
 })
@@ -48,11 +48,22 @@ test.cb('return png image for a tweet id', t => {
 
 test.cb('return svg image for a tweet id', t => {
   request(app)
-    .get('/12345678987654321?format=svg')
+    .get('/12345678987654321.svg')
     .end((err, res) => {
       t.falsy(err)
       t.is(res.status, 200)
       t.is(res.header['content-type'], 'image/svg+xml')
+      t.end()
+    })
+})
+
+test.cb('return jpg image for a tweet id', t => {
+  request(app)
+    .get('/12345678987654321.jpg')
+    .end((err, res) => {
+      t.falsy(err)
+      t.is(res.status, 200)
+      t.is(res.header['content-type'], 'image/jpeg')
       t.end()
     })
 })
