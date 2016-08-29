@@ -29,8 +29,8 @@ http://localhost.3000/:tweet_id.:format?
 #### PNG
 
 ```
-http://localhost.3000/210462857140252672.png
 http://localhost.3000/210462857140252672
+http://localhost.3000/210462857140252672.png
 ```
 
 #### JPEG
@@ -52,7 +52,7 @@ http://localhost.3000/210462857140252672.html
 http://localhost.3000/210462857140252672.svg
 ```
 
-*Makes use of the `foreignObject` element which is currently not supported by all versions of Internet Explorer.*
+*Makes use of the `foreignObject` element which is currently not supported by Internet Explorer.*
 
 
 ## Test

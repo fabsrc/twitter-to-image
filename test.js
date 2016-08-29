@@ -6,7 +6,7 @@ const app = require('./server')
 test.before(t => {
   nock('https://api.twitter.com/1.1')
     .persist()
-    .get('/statuses/show/12345678987654321.json')
+    .get('/statuses/show/210462857140252672.json')
     .reply(200, {
       'created_at': 'Wed Jun 06 20:07:10 +0000 2012',
       'id_str': '210462857140252672',
@@ -37,7 +37,7 @@ test.cb('display message when no tweet id is given', t => {
 
 test.cb('return png image for a tweet id', t => {
   request(app)
-    .get('/12345678987654321')
+    .get('/statuses/210462857140252672')
     .end((err, res) => {
       t.falsy(err)
       t.is(res.status, 200)
@@ -48,7 +48,7 @@ test.cb('return png image for a tweet id', t => {
 
 test.cb('return svg image for a tweet id', t => {
   request(app)
-    .get('/12345678987654321.svg')
+    .get('/statuses/210462857140252672.svg')
     .end((err, res) => {
       t.falsy(err)
       t.is(res.status, 200)
@@ -59,7 +59,7 @@ test.cb('return svg image for a tweet id', t => {
 
 test.cb('return jpg image for a tweet id', t => {
   request(app)
-    .get('/12345678987654321.jpg')
+    .get('/statuses/210462857140252672.jpg')
     .end((err, res) => {
       t.falsy(err)
       t.is(res.status, 200)
