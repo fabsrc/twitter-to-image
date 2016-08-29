@@ -4,7 +4,6 @@ const Datastore = require('nedb')
 const app = require('express')()
 const Twit = require('twit')
 const render = require('./lib/render')
-// const config = require('./config.json')
 
 let T = new Twit({
   'consumer_key': process.env.TWITTER_CONSUMER_KEY,
@@ -76,6 +75,7 @@ function returnImageFromTweet (req, res) {
 app.get('/:screenname/status/:id.:format?', returnImageFromTweet)
 app.get('/statuses/:id.:format?', returnImageFromTweet)
 app.get('/', (req, res) => res.status(404).send('Please enter a valid tweet id.'))
+
 app.listen(process.env.PORT || 3000, function () {
   console.log(`Started server on port ${this.address().port}!`)
 })
