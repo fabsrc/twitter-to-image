@@ -1,0 +1,26 @@
+{
+  "name": "twitter-to-image",
+  "version": "0.0.2",
+  "description": "Creates images from tweets.",
+  "main": "server.js",
+  "scripts": {
+    "test": "standard && ava",
+    "dev": "nodemon server.js"
+  },
+  "author": "Fabian Schneider",
+  "license": "MIT",
+  "dependencies": {
+    "dot": "^1.0.3",
+    "express": "^4.14.0",
+    "nedb": "^1.8.0",
+    "phantom": "^2.1.15",
+    "twit": "^2.2.4"
+  },
+  "devDependencies": {
+    "ava": "^0.16.0",
+    "nock": "^8.0.0",
+    "nodemon": "^1.10.0",
+    "standard": "^7.1.2",
+    "supertest": "^2.0.0"
+  }
+}

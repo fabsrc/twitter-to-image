@@ -1,0 +1,45 @@
+<style>
+  body {
+    background: #fff;
+  }
+  .tweet {
+    font-family: Helvetica, Arial, sans-serif;
+    border-radius: 5px;
+    border: 1px solid rgb(225, 232, 237);
+    padding: 20px 25px;
+  }
+  .username {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .screenname {
+    color: rgb(136, 153, 166);
+  }
+  .profileimage {
+    border-radius: 5px;
+    float: left;
+  }
+  .content {
+    font-size: 26px;
+    clear: both;
+  }
+  img {
+    max-width: 100%;
+  }
+</style>
+
+<div class="tweet">
+  <header>
+    <img class="profileimage" src="{{= it.user.profile_image_url }}" />
+    <div class="username">{{= it.user.name }}</div>
+    <div class="screenname">@{{= it.user.screen_name }}</div>
+  </header>
+  <div class="content">
+    <p>{{= it.text }}</p>
+  </div>
+  {{? (it.entities && it.entities.media && it.entities.media[0] && it.entities.media[0].media_url) }}
+    <div class="media">
+      <img src="{{= it.entities.media[0].media_url }}" />
+    </div>
+  {{?}}
+</div>
